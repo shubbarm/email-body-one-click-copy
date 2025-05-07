@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "One Click Body Copy",
+  "version": "1.0",
+  "description": "Copy Gmail email body with one click",
+  "permissions": ["scripting", "clipboardWrite"],
+  "host_permissions": ["https://mail.google.com/"],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Gmail Copy Body"
+  }
+}
