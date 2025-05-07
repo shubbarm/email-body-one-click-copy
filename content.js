@@ -1,7 +1,7 @@
 /*
  * @name         Gmail Simple Copy Email Body Button
  * @namespace    https://m.shubbar.ca/
- * @version      1.1
+ * @version      1.2
  * @description  Adds a button to copy the email body in Gmail, saving more time and clicks
  * @author       Mustafa Shubbar
  * @match        https://mail.google.com/*
@@ -61,7 +61,19 @@ function watchEmailChanges() {
   });
 }
 
-// Initial run
+// Watch for URL changes too (handles navigation in non-pane view)
+let lastUrl = location.href;
+setInterval(() => {
+  if (location.href !== lastUrl) {
+    lastUrl = location.href;
+    setTimeout(() => {
+      addCopyButton();
+      watchEmailChanges();
+    }, 1500); // delay to allow DOM to load
+  }
+}, 1000);
+
+// Initial load
 window.addEventListener("load", () => {
   setTimeout(() => {
     addCopyButton();
